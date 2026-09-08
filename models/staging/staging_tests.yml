@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: stg_scada
+    columns:
+      - name: turbine_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_asset_master')
+                field: turbine_id
+
+      - name: timestamp_utc
+        data_tests:
+          - not_null
+
+      - name: data_availability
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+                quote: false
+
+  - name: stg_asset_master
+    columns:
+      - name: turbine_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: rated_power_kw
+        data_tests:
+          - not_null
+
+      - name: commercial_operations_date
+        data_tests:
+          - not_null
+
+  - name: stg_weather
+    columns:
+      - name: timestamp_utc
+        data_tests:
+          - not_null
+          - unique
+
+  - name: stg_turbine_events
+    columns:
+      - name: turbine_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_asset_master')
+                field: turbine_id
+
+      - name: event_start_utc
+        data_tests:
+          - not_null
+
+      - name: event_code
+        data_tests:
+          - not_null

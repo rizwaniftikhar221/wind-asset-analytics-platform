@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: raw
+    database: WIND_ANALYTICS
+    schema: RAW
+    description: "Operational data ingested through Python."
+
+    tables:
+      - name: scada
+        identifier: SCADA
+        description: "Ten minute wind turbine telemetry."
+
+      - name: turbine_events
+        identifier: TURBINE_EVENTS
+        description: "Turbine status, fault and outage events."
+
+      - name: asset_master
+        identifier: ASSET_MASTER
+        description: "Wind turbine technical metadata."
+
+      - name: weather
+        identifier: WEATHER
+        description: "Hourly external weather data from Open Meteo."
